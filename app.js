@@ -470,14 +470,29 @@ function setFormType(type, tariff = '') {
   if (tariff) dialogForm.elements.tariff.value = tariff
 }
 
+function openLeadDialog(type, tariff = '', focusTarget = 'name') {
+  setFormType(type, tariff)
+  dialog.showModal()
+  document.documentElement.classList.add('dialog-open')
+  document.body.classList.add('dialog-open')
+  const focusElement = dialogForm.elements[focusTarget]
+  if (focusTarget === 'personalDataConsent') focusElement.focus()
+  else focusElement.focus({ preventScroll: true })
+}
+
+function continueQuickCheck(form) {
+  dialogForm.elements.name.value = form.elements.name.value
+  dialogForm.elements.phone.value = form.elements.phone.value
+  dialogForm.elements.oblast.value = form.elements.oblast.value
+  updateSettlements(dialogForm, SETTLEMENTS_BY_OBLAST)
+  dialogForm.elements.settlement.value = form.elements.settlement.value
+  openLeadDialog('connection', '', 'personalDataConsent')
+}
+
 document.addEventListener('click', (event) => {
   const openButton = event.target.closest('[data-open-form]')
   if (openButton) {
-    setFormType(openButton.dataset.formType || 'connection', openButton.dataset.tariff || '')
-    dialog.showModal()
-    document.documentElement.classList.add('dialog-open')
-    document.body.classList.add('dialog-open')
-    dialog.querySelector('input[name="name"]').focus({ preventScroll: true })
+    openLeadDialog(openButton.dataset.formType || 'connection', openButton.dataset.tariff || '')
   }
 
   if (event.target.closest('.dialog__close')) dialog.close()
@@ -569,6 +584,10 @@ async function submitLead(form) {
 document.querySelectorAll('[data-lead-form]').forEach((form) => {
   form.addEventListener('submit', (event) => {
     event.preventDefault()
+    if (form.classList.contains('quick-form')) {
+      continueQuickCheck(form)
+      return
+    }
     submitLead(form)
   })
 })
