@@ -49,6 +49,15 @@
   background: rgba(255, 183, 107, 0.08);
 }
 
+.menu-toggle {
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.menu-toggle:hover {
+  border-color: var(--orange);
+  background: rgba(255, 183, 107, 0.08);
+}
+
 .hero {
   background: radial-gradient(ellipse at 80% 30%, rgba(133, 56, 230, 0.38), transparent 28%),
     radial-gradient(ellipse at 15% 120%, rgba(68, 157, 255, 0.24), transparent 40%),
@@ -127,7 +136,7 @@
 .tariff-card__price span { color: #77829b; }
 .tariff-price-note {
   position: relative;
-  top: -1.45em;
+  top: -0.95em;
   margin-left: -4px;
   color: #5d67de;
   font: 700 14px/1 Manrope, sans-serif;
@@ -301,6 +310,83 @@
   font-weight: 600;
 }
 
+html.dialog-open,
+body.dialog-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+@media (max-width: 700px) {
+  .lead-dialog {
+    width: calc(100% - 28px);
+    max-width: 500px;
+    max-height: 84dvh;
+    margin: auto;
+    padding: 17px 16px 15px;
+    border-radius: 7px;
+  }
+
+  .lead-dialog h2 {
+    margin: 9px 0 5px;
+    font-size: 23px;
+  }
+
+  .dialog__intro {
+    margin-bottom: 11px;
+  }
+
+  .lead-form {
+    gap: 7px;
+  }
+
+  .lead-form input,
+  .lead-form select {
+    min-height: 36px;
+  }
+
+  .lead-form textarea {
+    min-height: 48px;
+    padding: 7px 9px;
+  }
+
+  .lead-form .consent-check {
+    gap: 7px;
+    font-size: 8px;
+    line-height: 1.45;
+  }
+
+  .dialog-representative {
+    padding-top: 8px;
+    font-size: 8px;
+  }
+}
+
+.footer__telegram {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.footer__telegram svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+.floating a.floating__telegram {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  background: #229ed9;
+  box-shadow: 0 5px 22px rgba(34, 158, 217, 0.34);
+}
+
+.floating__telegram svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
 .town-list__row {
   animation: coverage-town-enter 420ms ease both;
   animation-delay: var(--town-delay, 0ms);
@@ -368,5 +454,92 @@
   .town-list__status i {
     animation: none;
     transition: none;
+  }
+}
+
+.section-kicker,
+.header__phone small,
+.overline,
+.visual-node,
+.quick-form label,
+.lead-form label,
+.quick-form .button,
+.tariff-group__header p,
+.tariff-card__speed span,
+.tariff-card li,
+.tariff-card__price span,
+.tariff-card .button,
+.benefit-grid p,
+.steps-grid p,
+.footer__contact > a,
+.footer__contact > p,
+.footer__cta,
+.faq-list details p,
+.lead-form .consent-check,
+.dialog-representative {
+  font-size: 10px;
+}
+
+.hero__facts small,
+.visual-caption,
+.form-note,
+.tariff-card__index,
+.tariff-card__description,
+.fine-print,
+.town-list small,
+.town-list > button small,
+.footer__contact > span,
+.map-point b {
+  font-size: 9px;
+}
+
+.visual-caption small,
+.hero__bottom,
+.popular-tag,
+.footer__bottom,
+.brand__name small,
+.geo-map__note,
+.geo-map__north,
+.town-list > .town-list__status {
+  font-size: 8px;
+}
+
+@media (max-width: 700px) {
+  .hero__facts b { font-size: 9px; }
+  .hero__facts small { font-size: 8px; }
+  .quick-form label,
+  .quick-form .button { font-size: 11px; }
+  .tariff-card__index,
+  .tariff-card li,
+  .benefit-grid p,
+  .steps-grid p,
+  .footer__contact > a,
+  .footer__contact > p { font-size: 9px; }
+  .tariff-card__description,
+  .tariff-card__price span,
+  .tariff-card .button,
+  .fine-print,
+  .button--header,
+  .map-point b { font-size: 8px; }
+  .steps .section-heading > .text-link { font-size: 10px; }
+  .geo-map__note { font-size: 7px; }
+  .hero__bottom,
+  .popular-tag,
+  .footer__bottom { font-size: 7px; }
+}
+
+@media (max-width: 360px) {
+  .hero__facts b,
+  .tariff-card .button,
+  .button--header {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .tariff-grid,
+  .tariff-group__cards,
+  .tariff-group:nth-child(3) .tariff-group__cards {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

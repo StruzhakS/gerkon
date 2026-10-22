@@ -337,6 +337,8 @@ document.addEventListener('click', (event) => {
   if (openButton) {
     setFormType(openButton.dataset.formType || 'connection', openButton.dataset.tariff || '')
     dialog.showModal()
+    document.documentElement.classList.add('dialog-open')
+    document.body.classList.add('dialog-open')
     dialog.querySelector('input[name="name"]').focus({ preventScroll: true })
   }
 
@@ -348,6 +350,8 @@ dialog.addEventListener('click', (event) => {
 })
 
 dialog.addEventListener('close', () => {
+  document.documentElement.classList.remove('dialog-open')
+  document.body.classList.remove('dialog-open')
   if (!dialogForm.querySelector('.form-message')) dialogForm.innerHTML = dialogFormTemplate
   dialogForm.reset()
   const message = dialogForm.querySelector('.form-message')
