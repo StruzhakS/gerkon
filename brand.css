@@ -95,25 +95,27 @@
 
 .tariff-card {
   overflow: hidden;
-  border-color: rgba(76, 94, 170, 0.19);
-  border-radius: 6px;
-  background: linear-gradient(155deg, #ffffff 0%, #f8f9ff 100%);
-  box-shadow: 0 10px 26px rgba(29, 40, 88, 0.055);
+  border-color: rgba(76, 94, 170, 0.22);
+  border-radius: 10px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(129, 104, 235, 0.09), transparent 42%),
+    linear-gradient(155deg, #ffffff 0%, #f5f7ff 100%);
+  box-shadow: 0 14px 32px rgba(29, 40, 88, 0.09), inset 0 1px 0 #ffffff;
 }
 
 .tariff-card--popular {
-  border-color: rgba(154, 106, 239, 0.72);
+  border-color: rgba(155, 133, 255, 0.78);
   background: linear-gradient(145deg, #101d3d 0%, #103e8a 53%, #43156c 100%);
-  box-shadow: 0 20px 46px rgba(23, 43, 111, 0.28);
+  box-shadow: 0 22px 48px rgba(23, 43, 111, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .tariff-card::before {
   position: absolute;
   inset: 0 0 auto;
-  height: 3px;
+  height: 4px;
   content: "";
   background: linear-gradient(90deg, #1769ff 0%, #8b35e6 62%, #70dfff 100%);
-  opacity: 0.72;
+  opacity: 0.9;
 }
 
 .tariff-card--popular::before {
@@ -123,14 +125,17 @@
 }
 
 .tariff-card:hover {
-  border-color: rgba(95, 107, 224, 0.5);
-  box-shadow: 0 18px 38px rgba(44, 55, 130, 0.13);
+  transform: translateY(-5px);
+  border-color: rgba(95, 107, 224, 0.62);
+  box-shadow: 0 22px 42px rgba(44, 55, 130, 0.17), inset 0 1px 0 #ffffff;
 }
 
-.tariff-card h3 { color: #152344; }
+.tariff-card .button { border-radius: 5px; }
+.tariff-card .button--outline { border-color: rgba(56, 75, 150, 0.34); }
+.tariff-card h3 { color: #152344; font-size: 20px; }
 .tariff-card__index { color: #246fea; }
 .tariff-card__description { color: #75809a; }
-.tariff-card__speed strong { color: #17284b; }
+.tariff-card__speed strong { color: #17284b; font-size: 39px; letter-spacing: -1.4px; }
 .tariff-card__speed span { color: #8737d4; }
 .tariff-card__price strong { color: #17284b; }
 .tariff-card__price span { color: #77829b; }
@@ -665,6 +670,21 @@ body.dialog-open {
   .hero__bottom,
   .popular-tag,
   .footer__bottom { font-size: 7px; }
+}
+
+@media (min-width: 1025px) {
+  .tariff-card ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 18px;
+  }
+
+  .tariff-card li {
+    align-items: flex-start;
+  }
+
+  .tariff-card li span {
+    flex: 0 0 11px;
+  }
 }
 
 @media (max-width: 360px) {

@@ -75,23 +75,44 @@ const tariffGroups = [
 ]
 
 const mapCities = [
-  { name: 'Ужгород', lat: 48.623, lon: 22.295, dx: 10, dy: 12 },
-  { name: 'Львів', lat: 49.839, lon: 24.029, dx: 10, dy: -20 },
-  { name: 'Луцьк', lat: 50.747, lon: 25.325, dx: -14, dy: -14 },
-  { name: 'Київ', lat: 50.450, lon: 30.524, dx: 10, dy: -12 },
-  { name: 'Полтава', lat: 49.589, lon: 34.551, dx: -12, dy: 14 },
-  { name: 'Одеса', lat: 46.482, lon: 30.723, dx: -10, dy: -12 },
-  { name: 'Харків', lat: 49.993, lon: 36.230, dx: 10, dy: -12 },
-  { name: 'Дніпро', lat: 48.464, lon: 35.046, dx: -10, dy: 16 },
-  { name: 'Запоріжжя', lat: 47.839, lon: 35.139, dx: 10, dy: 18 },
-  { name: 'Миколаїв', lat: 46.976, lon: 31.994, dx: -10, dy: 16 },
-  { name: 'Херсон', lat: 46.635, lon: 32.617, dx: 10, dy: 16 },
-  { name: 'Донецьк', lat: 48.015, lon: 37.803, dx: 10, dy: -16 },
-  { name: 'Сімферополь', lat: 44.952, lon: 34.102, dx: -10, dy: -14 },
-  { name: 'Тернопіль', lat: 49.553, lon: 25.594, dx: -12, dy: -18 },
+  { name: 'Ужгород', lat: 48.623, lon: 22.295 },
+  { name: 'Львів', lat: 49.839, lon: 24.029 },
+  { name: 'Рівне', lat: 50.619, lon: 26.252 },
+  { name: 'Луцьк', lat: 50.747, lon: 25.325 },
+  { name: 'Ковель', lat: 51.215, lon: 24.711 },
+  { name: 'Київ', lat: 50.450, lon: 30.524 },
+  { name: 'Житомир', lat: 50.254, lon: 28.658 },
+  { name: 'Біла Церква', lat: 49.796, lon: 30.115 },
+  { name: 'Чернігів', lat: 51.498, lon: 31.289 },
+  { name: 'Суми', lat: 50.907, lon: 34.798 },
+  { name: 'Ромни', lat: 50.745, lon: 33.477 },
+  { name: 'Прилуки', lat: 50.594, lon: 32.387 },
+  { name: 'Хмельницький', lat: 49.422, lon: 26.987 },
+  { name: 'Вінниця', lat: 49.233, lon: 28.468 },
+  { name: 'Черкаси', lat: 49.444, lon: 32.059 },
+  { name: 'Полтава', lat: 49.589, lon: 34.551 },
+  { name: 'Кременчук', lat: 49.068, lon: 33.420 },
+  { name: 'Кропивницький', lat: 48.507, lon: 32.262 },
+  { name: 'Івано-Франківськ', lat: 48.922, lon: 24.711 },
+  { name: 'Чернівці', lat: 48.291, lon: 25.940 },
+  { name: 'Умань', lat: 48.748, lon: 30.221 },
+  { name: 'Одеса', lat: 46.482, lon: 30.723 },
+  { name: 'Балта', lat: 47.936, lon: 29.619 },
+  { name: 'Первомайськ', lat: 48.044, lon: 30.850 },
+  { name: 'Харків', lat: 49.993, lon: 36.230 },
+  { name: 'Дніпро', lat: 48.464, lon: 35.046 },
+  { name: 'Кривий Ріг', lat: 47.910, lon: 33.392 },
+  { name: 'Запоріжжя', lat: 47.839, lon: 35.139 },
+  { name: 'Миколаїв', lat: 46.976, lon: 31.994 },
+  { name: 'Херсон', lat: 46.635, lon: 32.617 },
+  { name: 'Маріуполь', lat: 47.097, lon: 37.543 },
+  { name: 'Донецьк', lat: 48.015, lon: 37.803 },
+  { name: 'Луганськ', lat: 48.574, lon: 39.307 },
+  { name: 'Сімферополь', lat: 44.952, lon: 34.102 },
+  { name: 'Тернопіль', lat: 49.553, lon: 25.594 },
 ]
 
-const mapContour = 'M 342.65 41.93 L 354.69 44.00 L 362.83 32.37 L 372.62 34.94 L 406.04 30.00 L 426.64 58.95 L 418.59 69.30 L 421.26 85.17 L 446.96 87.64 L 458.42 109.81 L 457.72 119.87 L 498.65 137.84 L 523.39 129.75 L 543.28 153.69 L 562.11 153.14 L 609.62 169.77 L 610.00 184.78 L 596.91 211.55 L 604.03 239.74 L 598.96 256.79 L 567.77 260.54 L 551.16 274.81 L 550.14 297.52 L 524.41 301.61 L 502.96 318.15 L 472.79 320.85 L 445.03 339.90 L 446.65 367.28 L 441.79 365.72 L 437.60 355.63 L 427.24 353.61 L 404.32 342.65 L 395.83 355.31 L 391.40 349.75 L 341.30 336.83 L 339.08 317.77 L 309.22 324.06 L 297.26 352.21 L 272.30 390.00 L 257.68 381.23 L 242.54 389.45 L 228.15 380.03 L 236.27 374.48 L 241.90 356.94 L 250.72 340.64 L 248.44 331.48 L 255.18 327.41 L 258.36 334.48 L 277.35 335.98 L 285.88 332.20 L 279.87 327.01 L 282.15 319.40 L 270.90 306.40 L 266.24 285.03 L 254.50 276.66 L 256.81 259.34 L 242.25 245.58 L 228.99 243.67 L 205.24 227.74 L 183.81 232.80 L 176.13 240.34 L 162.53 240.33 L 154.42 252.28 L 130.63 257.19 L 119.62 265.04 L 104.66 252.55 L 84.00 252.36 L 64.06 246.70 L 50.14 257.65 L 47.89 243.94 L 30.00 230.04 L 36.29 209.43 L 45.23 196.12 L 52.27 199.10 L 43.95 176.13 L 73.22 133.61 L 89.21 127.66 L 92.67 113.31 L 76.46 68.68 L 91.87 66.69 L 109.53 52.83 L 134.50 51.70 L 167.06 55.70 L 203.03 67.97 L 228.41 69.00 L 240.53 76.39 L 252.63 67.48 L 261.07 79.43 L 290.16 76.98 L 302.98 81.92 L 305.05 56.19 L 314.98 44.96 L 342.65 41.93 Z'
+const mapContour = 'M 342.65 40.59 L 354.69 42.42 L 362.83 32.10 L 372.62 34.38 L 406.04 30.00 L 426.64 55.69 L 418.59 64.87 L 421.26 78.95 L 446.96 81.15 L 458.42 100.82 L 457.72 109.75 L 498.65 125.70 L 523.39 118.51 L 543.28 139.76 L 562.11 139.27 L 609.62 154.03 L 610.00 167.35 L 596.91 191.11 L 604.03 216.12 L 598.96 231.25 L 567.77 234.58 L 551.16 247.24 L 550.14 267.40 L 524.41 271.02 L 502.96 285.70 L 472.79 288.09 L 445.03 305.00 L 467.19 310.59 L 483.31 326.47 L 494.59 336.45 L 499.05 346.83 L 492.57 350.42 L 492.66 359.70 L 473.57 363.11 L 462.56 357.61 L 448.85 372.12 L 437.25 371.34 L 417.32 388.84 L 405.02 390.00 L 393.78 381.98 L 400.20 379.98 L 399.10 357.44 L 365.07 344.21 L 387.23 327.18 L 404.07 323.72 L 406.82 320.59 L 401.76 319.63 L 402.04 311.73 L 341.30 302.28 L 339.08 285.36 L 309.22 290.94 L 297.26 315.93 L 272.30 349.46 L 257.68 341.67 L 242.54 348.97 L 228.15 340.61 L 236.27 335.68 L 241.90 320.12 L 250.72 305.66 L 248.44 297.53 L 255.18 293.91 L 258.36 300.19 L 277.35 301.52 L 285.88 298.17 L 279.87 293.57 L 282.15 286.80 L 270.90 275.27 L 266.24 256.31 L 254.50 248.88 L 256.81 233.51 L 242.25 221.31 L 228.99 219.61 L 205.24 205.47 L 183.81 209.96 L 176.13 216.65 L 162.53 216.65 L 154.42 227.25 L 130.63 231.61 L 119.62 238.57 L 104.66 227.49 L 84.00 227.32 L 64.06 222.30 L 50.14 232.01 L 47.89 219.85 L 30.00 207.51 L 36.29 189.22 L 45.23 177.41 L 52.27 180.06 L 43.95 159.67 L 73.22 121.94 L 89.21 116.66 L 92.67 103.93 L 76.46 64.32 L 91.87 62.56 L 109.53 50.26 L 134.50 49.25 L 167.06 52.81 L 203.03 63.70 L 228.41 64.61 L 240.53 71.16 L 252.63 63.25 L 261.07 73.86 L 290.16 71.69 L 302.98 76.07 L 305.05 53.24 L 314.98 43.28 L 342.65 40.59 Z'
 
 const tariffGrid = document.querySelector('#tariff-grid')
 const dialog = document.querySelector('#lead-dialog')
@@ -151,19 +172,92 @@ function renderTariffs() {
   tariffGrid.after(offerNote)
 }
 
+function layoutMapLabels() {
+  const mapWidth = mapPoints.clientWidth
+  const mapHeight = mapPoints.clientHeight
+  const placedLabels = []
+  const verticalOffsets = [0, -12, 12, -24, 24, -36, 36, -48, 48, -60, 60, -72, 72]
+  const horizontalOffsets = [0, -12, 12, -24, 24, -36, 36]
+  const candidates = [
+    ...verticalOffsets.flatMap((offset) => [
+      { side: 'right', left: 8, top: offset, score: Math.abs(offset) / 100 },
+      { side: 'left', left: -8, top: offset, score: 0.1 + Math.abs(offset) / 100 },
+    ]),
+    ...horizontalOffsets.flatMap((offset) => [
+      { side: 'above', left: offset, top: -8, score: 0.2 + Math.abs(offset) / 100 },
+      { side: 'below', left: offset, top: 8, score: 0.3 + Math.abs(offset) / 100 },
+    ]),
+  ]
+
+  const labels = [...mapPoints.querySelectorAll('.map-point--city')]
+    .map((point) => ({ point, label: point.querySelector('b') }))
+    .sort((first, second) => second.label.textContent.length - first.label.textContent.length)
+
+  labels.forEach(({ point, label }) => {
+    const markerX = point.offsetLeft + point.offsetWidth / 2
+    const markerY = point.offsetTop + point.offsetHeight / 2
+    const width = label.offsetWidth
+    const height = label.offsetHeight
+    let bestPlacement
+    let bestScore = Infinity
+
+    candidates.forEach((candidate) => {
+      const left = markerX + candidate.left - (candidate.side === 'left' ? width : candidate.side === 'above' || candidate.side === 'below' ? width / 2 : 0)
+      const top = markerY + candidate.top - (candidate.side === 'above' ? height : candidate.side === 'below' ? 0 : height / 2)
+      const right = left + width
+      const bottom = top + height
+      const overflow = Math.max(0, -left) + Math.max(0, -top) + Math.max(0, right - mapWidth) + Math.max(0, bottom - mapHeight)
+      const overlap = placedLabels.reduce((total, placed) => {
+        const overlapWidth = Math.max(0, Math.min(right + 5, placed.right) - Math.max(left - 5, placed.left))
+        const overlapHeight = Math.max(0, Math.min(bottom + 5, placed.bottom) - Math.max(top - 5, placed.top))
+        return total + overlapWidth * overlapHeight
+      }, 0)
+      const score = overflow * 1000 + overlap * 1000 + candidate.score
+
+      if (score < bestScore) {
+        bestScore = score
+        bestPlacement = { candidate, left, top, right, bottom }
+      }
+    })
+
+    label.style.left = `${bestPlacement.left - point.offsetLeft}px`
+    label.style.top = `${bestPlacement.top - point.offsetTop}px`
+    placedLabels.push(bestPlacement)
+  })
+}
+
 function renderMapPoints() {
-  const bounds = { minLat: 44, maxLat: 53, minLon: 21.5, maxLon: 40.5 }
+  const bounds = { minLat: 44.399644, maxLat: 52.335075, minLon: 22.085608, maxLon: 40.080789 }
   const mapSvg = document.querySelector('.geo-map__art')
   const mapOutline = mapSvg.querySelector('.map-land')
   mapOutline.setAttribute('d', mapContour)
   mapSvg.querySelector('.map-grid-fill').setAttribute('d', mapContour)
   mapOutline.id = 'map-outline'
   mapPoints.innerHTML = mapCities.map((city) => {
-    const x = (30 + ((city.lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * 560) / 640 * 100
-    const y = (30 + ((bounds.maxLat - city.lat) / (bounds.maxLat - bounds.minLat)) * 360) / 420 * 100
-    const labelClass = city.dx < 0 ? ' map-point--left-label' : ''
-    return `<span class="map-point map-point--city${labelClass}" style="--x:${x}%;--y:${y}%;--label-x:${city.dx}px;--label-y:${city.dy}px" title="${city.name}"><i></i><b>${city.name}</b></span>`
+    const x = 30 + ((city.lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * 580
+    const y = 30 + ((bounds.maxLat - city.lat) / (bounds.maxLat - bounds.minLat)) * 360
+    return `<span class="map-point map-point--city" data-map-x="${x}" data-map-y="${y}" title="${city.name}"><i></i><b>${city.name}</b></span>`
   }).join('')
+
+  const positionMapPoints = () => {
+    const matrix = mapSvg.getScreenCTM()
+    if (!matrix) return
+    const pointsBounds = mapPoints.getBoundingClientRect()
+    const svgPoint = mapSvg.createSVGPoint()
+
+    mapPoints.querySelectorAll('.map-point--city').forEach((point) => {
+      svgPoint.x = Number(point.dataset.mapX)
+      svgPoint.y = Number(point.dataset.mapY)
+      const screenPoint = svgPoint.matrixTransform(matrix)
+      point.style.left = `${screenPoint.x - pointsBounds.left}px`
+      point.style.top = `${screenPoint.y - pointsBounds.top}px`
+    })
+    layoutMapLabels()
+  }
+
+  positionMapPoints()
+  new ResizeObserver(positionMapPoints).observe(mapPoints)
+  window.addEventListener('resize', positionMapPoints)
 
     const traveler = document.createElementNS(mapSvg.namespaceURI, 'circle')
     traveler.setAttribute('class', 'map-traveler')
