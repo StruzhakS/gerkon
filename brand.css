@@ -1,5 +1,10 @@
 ﻿:root {
-  --teal: #7aa6ff;
+  --primary: #1769ff;
+  --secondary: #8b35e6;
+  --violet: #9635e8;
+  --blue: #1769ff;
+  --teal: #2f82ff;
+  --accent: #80ddff;
   --mint: #eaf2ff;
   --paper: #f5f7fb;
   --orange: #ffb76b;
@@ -25,13 +30,13 @@
 
 .button--accent {
   color: #0f1b35;
-  background: linear-gradient(135deg, #8fe7ff 0%, #6f8cff 35%, #815ee8 100%);
-  box-shadow: 0 12px 28px rgba(97, 111, 255, 0.28);
+  background: linear-gradient(120deg, #7edfff 0%, #1769ff 48%, #8b35e6 100%);
+  box-shadow: 0 12px 28px rgba(48, 89, 231, 0.3);
 }
 
 .button--accent:hover:not(:disabled) {
-  background: linear-gradient(135deg, #baf1ff 0%, #8a9dff 34%, #9276f7 100%);
-  box-shadow: 0 12px 32px rgba(97, 111, 255, 0.32);
+  background: linear-gradient(120deg, #b5f0ff 0%, #4384ff 46%, #a04ff0 100%);
+  box-shadow: 0 12px 32px rgba(70, 85, 230, 0.36);
 }
 
 .button--header {
@@ -45,9 +50,9 @@
 }
 
 .hero {
-  background: radial-gradient(ellipse at 80% 30%, rgba(120,97,255,.4), transparent 28%),
-    radial-gradient(ellipse at 15% 120%, rgba(143,231,255,.22), transparent 40%),
-    linear-gradient(120deg, #070f1c 0%, #0d1830 30%, #18254d 62%, #1f214f 100%);
+  background: radial-gradient(ellipse at 80% 30%, rgba(133, 56, 230, 0.38), transparent 28%),
+    radial-gradient(ellipse at 15% 120%, rgba(68, 157, 255, 0.24), transparent 40%),
+    linear-gradient(120deg, #070f1c 0%, #0b1d3e 30%, #123f89 62%, #35105e 100%);
 }
 
 .hero h1 em { color: var(--citrus); }
@@ -59,7 +64,7 @@
 .hero__facts > i { background: rgba(255, 183, 107, 0.56); }
 
 .quick-check {
-  background: linear-gradient(135deg, #122a46 0%, #1a2d68 45%, #261e52 100%);
+  background: linear-gradient(125deg, #102748 0%, #164ca9 48%, #512078 100%);
 }
 
 .quick-check .section-kicker { color: var(--citrus); }
@@ -74,7 +79,7 @@
 }
 
 .popular-tag {
-  background: linear-gradient(135deg, #a5efff, #a8b9ff);
+  background: linear-gradient(115deg, #85e4ff 0%, #4e8dff 52%, #a65aee 100%);
   color: #121b3a;
   border-radius: 0 0 0 5px;
 }
@@ -88,9 +93,9 @@
 }
 
 .tariff-card--popular {
-  border-color: rgba(156, 151, 255, 0.64);
-  background: linear-gradient(145deg, #111b3c 0%, #1a2860 54%, #29215f 100%);
-  box-shadow: 0 20px 46px rgba(31, 39, 104, 0.24);
+  border-color: rgba(154, 106, 239, 0.72);
+  background: linear-gradient(145deg, #101d3d 0%, #103e8a 53%, #43156c 100%);
+  box-shadow: 0 20px 46px rgba(23, 43, 111, 0.28);
 }
 
 .tariff-card::before {
@@ -98,14 +103,14 @@
   inset: 0 0 auto;
   height: 3px;
   content: "";
-  background: linear-gradient(90deg, #4f78f6 0%, #7c63ed 62%, #91dfff 100%);
+  background: linear-gradient(90deg, #1769ff 0%, #8b35e6 62%, #70dfff 100%);
   opacity: 0.72;
 }
 
 .tariff-card--popular::before {
   height: 4px;
   opacity: 1;
-  background: linear-gradient(90deg, #8fe7ff, #8796ff, #a276fa);
+  background: linear-gradient(90deg, #80e5ff, #2679ff 52%, #b14cf0);
 }
 
 .tariff-card:hover {
@@ -114,10 +119,10 @@
 }
 
 .tariff-card h3 { color: #152344; }
-.tariff-card__index { color: #6677d7; }
+.tariff-card__index { color: #246fea; }
 .tariff-card__description { color: #75809a; }
 .tariff-card__speed strong { color: #17284b; }
-.tariff-card__speed span { color: #6d70c5; }
+.tariff-card__speed span { color: #8737d4; }
 .tariff-card__price strong { color: #17284b; }
 .tariff-card__price span { color: #77829b; }
 .tariff-price-note {
@@ -131,18 +136,18 @@
 .fine-print--offer { margin: 8px 0 0; color: #59678f; }
 
 .tariff-card--popular h3 { color: #f4f6ff; }
-.tariff-card--popular .tariff-card__index { color: #a9b6ff; }
+.tariff-card--popular .tariff-card__index { color: #83caff; }
 .tariff-card--popular .tariff-card__description { color: #bdc8e9; }
 .tariff-card--popular .tariff-card__speed strong,
 .tariff-card--popular .tariff-card__price strong { color: #ffffff; }
 .tariff-card--popular .tariff-card__speed span,
-.tariff-card--popular .tariff-card__price span { color: #a9eaff; }
+.tariff-card--popular .tariff-card__price span { color: #c78aff; }
 .tariff-card--popular .speed-line { background: rgba(221, 231, 255, 0.15); }
 .tariff-card--popular li { color: #d0d8ed; }
 .tariff-card--popular li span { color: #8fe7ff; }
 
 .speed-line i {
-  background: linear-gradient(90deg, #4f78f6, #7a65ec, #8fe7ff);
+  background: linear-gradient(90deg, #1769ff, #8b35e6, #75dcff);
 }
 
 .tariff-card li span { color: #6674e9; }
@@ -155,13 +160,13 @@
 
 .tariff-card .button--dark {
   color: #ffffff;
-  background: linear-gradient(110deg, #5b83ff 0%, #8268f2 100%);
-  box-shadow: 0 9px 22px rgba(96, 106, 255, 0.3);
+  background: linear-gradient(110deg, #1769ff 0%, #8b35e6 100%);
+  box-shadow: 0 9px 22px rgba(60, 80, 226, 0.32);
 }
 
 .tariff-card .button--dark:hover:not(:disabled) {
-  background: linear-gradient(110deg, #79a0ff 0%, #987bff 100%);
-  box-shadow: 0 12px 26px rgba(96, 106, 255, 0.38);
+  background: linear-gradient(110deg, #4385ff 0%, #a64ff0 100%);
+  box-shadow: 0 12px 26px rgba(91, 71, 231, 0.4);
 }
 
 .tariff-card--popular:hover {
@@ -182,7 +187,7 @@
 }
 
 .benefits {
-  background: linear-gradient(120deg, #0c1427 0%, #192d56 40%, #201c4a 100%);
+  background: linear-gradient(120deg, #0b1428 0%, #123b7d 43%, #35115d 100%);
 }
 
 .coverage {
@@ -200,7 +205,7 @@
 }
 
 .closing {
-  background: linear-gradient(135deg, #101d36 0%, #1a2d5d 42%, #24204d 100%);
+  background: linear-gradient(125deg, #101d36 0%, #154b9e 48%, #43156f 100%);
   box-shadow: inset 0 1px 0 rgba(143, 231, 255, 0.08);
 }
 
