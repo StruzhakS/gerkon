@@ -271,6 +271,50 @@ function renderMapPoints() {
     list.append(askButton)
   }
 
+  function initFaqAccordions() {
+    document.querySelectorAll('.faq-list details').forEach((details) => {
+      const summary = details.querySelector('summary')
+      const answer = details.querySelector('p')
+      const answerPanel = document.createElement('div')
+      const answerContent = document.createElement('div')
+      let closeTimer
+
+      answerPanel.className = 'faq-answer'
+      answerContent.className = 'faq-answer__inner'
+      answer.replaceWith(answerPanel)
+      answerPanel.append(answerContent)
+      answerContent.append(answer)
+      summary.setAttribute('aria-expanded', String(details.open))
+
+      summary.addEventListener('click', (event) => {
+        event.preventDefault()
+
+        if (closeTimer) {
+          window.clearTimeout(closeTimer)
+          closeTimer = undefined
+          details.classList.remove('is-closing')
+          summary.setAttribute('aria-expanded', 'true')
+          return
+        }
+
+        if (!details.open) {
+          details.open = true
+          summary.setAttribute('aria-expanded', 'true')
+          return
+        }
+
+        summary.setAttribute('aria-expanded', 'false')
+        details.classList.add('is-closing')
+        const closeDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 420
+        closeTimer = window.setTimeout(() => {
+          details.open = false
+          details.classList.remove('is-closing')
+          closeTimer = undefined
+        }, closeDelay)
+      })
+    })
+  }
+
 function populateRegionOptions() {
   const regions = SETTLEMENTS_BY_OBLAST
 
@@ -439,4 +483,5 @@ document.querySelector('#year').textContent = new Date().getFullYear()
 renderTariffs()
 renderMapPoints()
 renderCoverageTowns()
+initFaqAccordions()
 populateRegionOptions()
