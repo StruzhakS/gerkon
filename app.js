@@ -1,44 +1,97 @@
 import { SETTLEMENTS_BY_OBLAST } from './settlements-data.js'
 
-const tariffs = [
-  { name: 'Старт', speed: '100', price: '199', unit: 'Мбіт/с', description: 'Для щоденних справ', features: ['Соцмережі та відео', 'Робота й навчання', 'Оптична GPON-мережа'] },
-  { name: 'Комфорт', speed: '300', price: '279', unit: 'Мбіт/с', description: 'Баланс на кожен день', features: ['Відео у високій якості', 'Кілька пристроїв онлайн', 'Оптична GPON-мережа'] },
-  { name: 'Сімейний', speed: '500', price: '349', unit: 'Мбіт/с', description: 'Більше швидкості для всіх', features: ['Для всієї родини', 'Робота, ігри та стримінг', 'Оптична GPON-мережа'], popular: true },
-  { name: 'Максимум', speed: '1', price: '449', unit: 'Гбіт/с', description: 'Максимум можливостей', features: ['Швидкі завантаження', 'Для вимогливих задач', 'Оптична GPON-мережа'] },
-]
-
-const towns = [
-  { name: 'Ужгород', lat: 48.623, lon: 22.295, dx: 12, dy: -17 },
-  { name: 'Великий Березний', lat: 48.894, lon: 22.458, dx: -12, dy: -22 },
-  { name: 'Малий Березний', lat: 48.866, lon: 22.444, dx: 12, dy: 22 },
-  { name: 'Перечин', lat: 48.734, lon: 22.474, dx: -12, dy: 20 },
-  { name: 'Зарічево', lat: 48.770, lon: 22.513, dx: 12, dy: -18 },
-  { name: 'Велика Добронь', lat: 48.418, lon: 22.390, dx: -12, dy: -18 },
-  { name: 'Мукачево', lat: 48.450, lon: 22.717, dx: -14, dy: -26 },
-  { name: 'Чинадійово', lat: 48.485, lon: 22.825, dx: 16, dy: 22 },
-  { name: 'Свалява', lat: 48.547, lon: 22.986, dx: 12, dy: -18 },
-  { name: 'Воловець', lat: 48.711, lon: 23.188, dx: 12, dy: -18 },
-  { name: 'Іршава', lat: 48.316, lon: 23.039, dx: -12, dy: 16 },
-  { name: 'Колочава', lat: 48.437, lon: 23.734, dx: -12, dy: -18 },
-  { name: 'Тячів', lat: 48.011, lon: 23.572, dx: -12, dy: -19 },
-  { name: 'Тарасівка', lat: 48.206, lon: 23.817, dx: -12, dy: 18 },
-  { name: 'Великий Бичків', lat: 47.967, lon: 24.015, dx: -12, dy: 19 },
-  { name: 'Рахів', lat: 48.050, lon: 24.200, dx: -12, dy: -19 },
+const tariffGroups = [
+  {
+    title: 'Укртелеком Інтернет',
+    subtitle: 'Стабільна швидкість для дому та роботи',
+    plans: [
+      {
+        name: 'Акція для нових абонентів',
+        price: '99',
+        unit: 'грн/міс',
+        description: 'Легке підключення від 1 грн',
+        features: ['Швидкість до 1 Гбіт/с', 'Легке підключення від 1 грн', 'Працює без світла', 'Технологія GPON', 'Ціна може відрізнятися для різних адрес', 'Діє в певних акційних населених пунктах'],
+        priceNote: true,
+        popular: true,
+      },
+      {
+        name: 'Регулярний тариф',
+        price: '300',
+        unit: 'грн/міс',
+        description: 'Тариф залежить від населеного пункту',
+        features: ['Швидкість до 1 Гбіт/с', 'Легке підключення від 1 грн', 'Працює без світла', 'Технологія GPON', 'Тариф залежить від населеного пункту'],
+      },
+    ],
+  },
+  {
+    title: 'Інтернет + Телебачення',
+    subtitle: 'Комфортний пакет для розваг і щоденного використання',
+    plans: [
+      {
+        name: 'Оптимальний Дует',
+        price: '400',
+        unit: 'грн/міс',
+        description: 'Інтернет до 1 Гбіт/с + понад 440 каналів',
+        features: ['Інтернет до 1 Гбіт/с', 'Телебачення: понад 440 каналів', 'Понад 14 500 фільмів', 'Спортивні та преміальні канали'],
+        popular: true,
+      },
+      {
+        name: 'Максимальний Дует',
+        price: '550',
+        unit: 'грн/міс',
+        description: 'Інтернет до 1 Гбіт/с + понад 480 каналів',
+        features: ['Інтернет до 1 Гбіт/с', 'Телебачення: понад 480 каналів', 'Понад 16 000 фільмів', 'Спортивні та преміальні канали', 'Топові спортивні трансляції'],
+      },
+    ],
+  },
+  {
+    title: 'Тарифи Телебачення',
+    subtitle: 'Вибір для фільмів, спорту та живих трансляцій',
+    plans: [
+      {
+        name: 'Легкий',
+        price: '129',
+        unit: 'грн/міс',
+        description: 'Понад 370 каналів',
+        features: ['Понад 370 каналів', 'Понад 12 500 фільмів', 'Спортивні канали'],
+      },
+      {
+        name: 'Оптимальний',
+        price: '249',
+        unit: 'грн/міс',
+        description: 'Понад 440 каналів',
+        features: ['Понад 440 каналів', 'Понад 14 500 фільмів', 'Спортивні та преміальні канали'],
+        popular: true,
+      },
+      {
+        name: 'Максимальний',
+        price: '449',
+        unit: 'грн/міс',
+        description: 'Понад 480 каналів',
+        features: ['Понад 480 каналів', 'Понад 16 000 фільмів', 'Спортивні та преміальні канали', 'Топові спортивні трансляції'],
+      },
+    ],
+  },
 ]
 
 const mapCities = [
-  { name: 'Ужгород', lat: 48.623, lon: 22.295, dx: 12, dy: 16 },
-  { name: 'Львів', lat: 49.839, lon: 24.029, dx: 12, dy: -30 },
-  { name: 'Київ', lat: 50.450, lon: 30.524, dx: 12, dy: -14 },
-  { name: 'Одеса', lat: 46.482, lon: 30.723, dx: -12, dy: -14 },
-  { name: 'Харків', lat: 49.993, lon: 36.230, dx: 12, dy: -14 },
-  { name: 'Дніпро', lat: 48.464, lon: 35.046, dx: -12, dy: 18 },
-  { name: 'Запоріжжя', lat: 47.839, lon: 35.139, dx: 12, dy: 24 },
-  { name: 'Донецьк', lat: 48.015, lon: 37.803, dx: 12, dy: -18 },
-  { name: 'Сімферополь', lat: 44.952, lon: 34.102, dx: -12, dy: -18 },
+  { name: 'Ужгород', lat: 48.623, lon: 22.295, dx: 10, dy: 12 },
+  { name: 'Львів', lat: 49.839, lon: 24.029, dx: 10, dy: -20 },
+  { name: 'Луцьк', lat: 50.747, lon: 25.325, dx: -14, dy: -14 },
+  { name: 'Київ', lat: 50.450, lon: 30.524, dx: 10, dy: -12 },
+  { name: 'Полтава', lat: 49.589, lon: 34.551, dx: -12, dy: 14 },
+  { name: 'Одеса', lat: 46.482, lon: 30.723, dx: -10, dy: -12 },
+  { name: 'Харків', lat: 49.993, lon: 36.230, dx: 10, dy: -12 },
+  { name: 'Дніпро', lat: 48.464, lon: 35.046, dx: -10, dy: 16 },
+  { name: 'Запоріжжя', lat: 47.839, lon: 35.139, dx: 10, dy: 18 },
+  { name: 'Миколаїв', lat: 46.976, lon: 31.994, dx: -10, dy: 16 },
+  { name: 'Херсон', lat: 46.635, lon: 32.617, dx: 10, dy: 16 },
+  { name: 'Донецьк', lat: 48.015, lon: 37.803, dx: 10, dy: -16 },
+  { name: 'Сімферополь', lat: 44.952, lon: 34.102, dx: -10, dy: -14 },
+  { name: 'Тернопіль', lat: 49.553, lon: 25.594, dx: -12, dy: -18 },
 ]
 
-const mapContour = 'M 45 147 L 64 126 L 77 97 L 77 63 L 96 38 L 122 29 L 160 42 L 198 38 L 237 46 L 269 59 L 314 63 L 339 76 L 371 84 L 365 101 L 346 122 L 326 143 L 301 164 L 275 176 L 250 189 L 230 210 L 243 227 L 282 235 L 320 239 L 358 231 L 390 214 L 422 202 L 461 185 L 486 185 L 512 197 L 531 218 L 518 239 L 538 256 L 563 273 L 589 290 L 614 307 L 608 328 L 589 344 L 557 357 L 525 357 L 493 349 L 467 336 L 442 344 L 410 336 L 384 323 L 352 311 L 320 302 L 294 290 L 262 281 L 237 269 L 205 260 L 173 248 L 147 235 L 122 223 L 102 210 L 83 193 L 70 176 L 58 164 Z'
+const mapContour = 'M 342.65 41.93 L 354.69 44.00 L 362.83 32.37 L 372.62 34.94 L 406.04 30.00 L 426.64 58.95 L 418.59 69.30 L 421.26 85.17 L 446.96 87.64 L 458.42 109.81 L 457.72 119.87 L 498.65 137.84 L 523.39 129.75 L 543.28 153.69 L 562.11 153.14 L 609.62 169.77 L 610.00 184.78 L 596.91 211.55 L 604.03 239.74 L 598.96 256.79 L 567.77 260.54 L 551.16 274.81 L 550.14 297.52 L 524.41 301.61 L 502.96 318.15 L 472.79 320.85 L 445.03 339.90 L 446.65 367.28 L 441.79 365.72 L 437.60 355.63 L 427.24 353.61 L 404.32 342.65 L 395.83 355.31 L 391.40 349.75 L 341.30 336.83 L 339.08 317.77 L 309.22 324.06 L 297.26 352.21 L 272.30 390.00 L 257.68 381.23 L 242.54 389.45 L 228.15 380.03 L 236.27 374.48 L 241.90 356.94 L 250.72 340.64 L 248.44 331.48 L 255.18 327.41 L 258.36 334.48 L 277.35 335.98 L 285.88 332.20 L 279.87 327.01 L 282.15 319.40 L 270.90 306.40 L 266.24 285.03 L 254.50 276.66 L 256.81 259.34 L 242.25 245.58 L 228.99 243.67 L 205.24 227.74 L 183.81 232.80 L 176.13 240.34 L 162.53 240.33 L 154.42 252.28 L 130.63 257.19 L 119.62 265.04 L 104.66 252.55 L 84.00 252.36 L 64.06 246.70 L 50.14 257.65 L 47.89 243.94 L 30.00 230.04 L 36.29 209.43 L 45.23 196.12 L 52.27 199.10 L 43.95 176.13 L 73.22 133.61 L 89.21 127.66 L 92.67 113.31 L 76.46 68.68 L 91.87 66.69 L 109.53 52.83 L 134.50 51.70 L 167.06 55.70 L 203.03 67.97 L 228.41 69.00 L 240.53 76.39 L 252.63 67.48 L 261.07 79.43 L 290.16 76.98 L 302.98 81.92 L 305.05 56.19 L 314.98 44.96 L 342.65 41.93 Z'
 
 const tariffGrid = document.querySelector('#tariff-grid')
 const dialog = document.querySelector('#lead-dialog')
@@ -46,23 +99,56 @@ const dialogTitle = document.querySelector('#dialog-title')
 const dialogKicker = document.querySelector('#dialog-kicker')
 const dialogIntro = document.querySelector('.dialog__intro')
 const dialogForm = dialog.querySelector('.lead-form')
+const consentLabel = document.createElement('label')
+consentLabel.className = 'consent-check'
+const consentInput = document.createElement('input')
+consentInput.type = 'checkbox'
+consentInput.name = 'personalDataConsent'
+consentInput.value = 'accepted'
+consentInput.required = true
+consentInput.setAttribute('aria-describedby', 'personal-data-consent-copy')
+const consentCopy = document.createElement('span')
+consentCopy.id = 'personal-data-consent-copy'
+consentCopy.textContent = 'Відправляючи заявку на цьому сайті, Ви даєте згоду на обробку вказаних Вами персональних даних відповідно до умов Закону України «Про захист персональних даних» виключно з метою отримання пропозиції щодо надання послуг АТ «Укртелеком» та підтверджуєте, що не є громадянином (або резидентом) Євросоюзу або Швейцарії.'
+consentLabel.append(consentInput, consentCopy)
+dialogForm.querySelector('.button--submit').before(consentLabel)
+const representativeNote = document.createElement('div')
+representativeNote.className = 'dialog-representative'
+representativeNote.innerHTML = '<span>©2026, Офіційний представник</span><strong>ПАТ «Укртелеком»</strong>'
+dialogForm.append(representativeNote)
 const dialogFormTemplate = dialogForm.innerHTML
 const menuToggle = document.querySelector('.menu-toggle')
 const navigation = document.querySelector('.nav')
 const mapPoints = document.querySelector('.geo-map__points')
 
 function renderTariffs() {
-  tariffGrid.innerHTML = tariffs.map((tariff, index) => `
-    <article class="tariff-card${tariff.popular ? ' tariff-card--popular' : ''}">
-      ${tariff.popular ? '<span class="popular-tag">ЧАСТО ОБИРАЮТЬ</span>' : ''}
-      <div class="tariff-card__top"><span class="tariff-card__index">0${index + 1}</span><span class="tariff-card__description">${tariff.description}</span></div>
-      <h3>${tariff.name}</h3>
-      <div class="tariff-card__speed"><strong>${tariff.speed}</strong><span>${tariff.unit}</span></div>
-      <div class="speed-line"><i style="--speed:${(index + 1) * 25}%"></i></div>
-      <ul>${tariff.features.map((feature) => `<li><span aria-hidden="true">✓</span>${feature}</li>`).join('')}</ul>
-      <div class="tariff-card__price"><strong>${tariff.price}</strong><span>₴ / місяць</span></div>
-      <button class="button ${tariff.popular ? 'button--dark' : 'button--outline'}" type="button" data-open-form data-form-type="connection" data-tariff="${tariff.name} — ${tariff.speed} ${tariff.unit}">Обрати тариф <span aria-hidden="true">→</span></button>
-    </article>`).join('')
+  tariffGrid.innerHTML = tariffGroups.map((group) => `
+    <div class="tariff-group">
+      <div class="tariff-group__header">
+        <span class="section-kicker">${group.title}</span>
+        <p>${group.subtitle}</p>
+      </div>
+      <div class="tariff-group__cards">
+        ${group.plans.map((tariff, index) => `
+          <article class="tariff-card${tariff.popular ? ' tariff-card--popular' : ''}">
+            ${tariff.popular ? '<span class="popular-tag">НАЙПОПУЛЯРНІШЕ</span>' : ''}
+            <div class="tariff-card__top"><span class="tariff-card__index">0${index + 1}</span><span class="tariff-card__description">${tariff.description}</span></div>
+            <h3>${tariff.name}</h3>
+            <div class="tariff-card__speed"><strong>${tariff.price}</strong>${tariff.priceNote ? '<sup class="tariff-price-note">*</sup>' : ''}<span>${tariff.unit}</span></div>
+            <div class="speed-line"><i style="--speed:${(index + 1) * 28}%"></i></div>
+            <ul>${tariff.features.map((feature) => {
+              const isFootnote = feature.includes('певних акційних населених пунктах')
+              return `<li><span class="tariff-feature__marker${isFootnote ? ' tariff-feature__marker--footnote' : ''}" aria-hidden="true">${isFootnote ? '*' : '✓'}</span>${feature}</li>`
+            }).join('')}</ul>
+            <button class="button ${tariff.popular ? 'button--dark' : 'button--outline'}" type="button" data-open-form data-form-type="connection" data-tariff="${group.title} — ${tariff.name}">Обрати тариф <span aria-hidden="true">→</span></button>
+          </article>`).join('')}
+      </div>
+    </div>
+  `).join('')
+  const offerNote = document.createElement('p')
+  offerNote.className = 'fine-print fine-print--offer'
+  offerNote.textContent = '* Акційна ціна 99 грн/міс діє для нових абонентів у певних населених пунктах. Уточніть доступність для вашої адреси.'
+  tariffGrid.after(offerNote)
 }
 
 function renderMapPoints() {
@@ -76,7 +162,7 @@ function renderMapPoints() {
     const x = (30 + ((city.lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * 560) / 640 * 100
     const y = (30 + ((bounds.maxLat - city.lat) / (bounds.maxLat - bounds.minLat)) * 360) / 420 * 100
     const labelClass = city.dx < 0 ? ' map-point--left-label' : ''
-    return `<span class="map-point map-point--city${labelClass}" style="--x:${x}%;--y:${y}%;--label-x:${city.dx}px;--label-y:${city.dy}px"><i></i><b>${city.name}</b></span>`
+    return `<span class="map-point map-point--city${labelClass}" style="--x:${x}%;--y:${y}%;--label-x:${city.dx}px;--label-y:${city.dy}px" title="${city.name}"><i></i><b>${city.name}</b></span>`
   }).join('')
 
     const traveler = document.createElementNS(mapSvg.namespaceURI, 'circle')
@@ -94,20 +180,88 @@ function renderMapPoints() {
     mapSvg.append(traveler)
 }
 
+  function getRandomItems(items, count) {
+    const shuffled = [...items]
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1))
+      const currentItem = shuffled[index]
+      shuffled[index] = shuffled[randomIndex]
+      shuffled[randomIndex] = currentItem
+    }
+    return shuffled.slice(0, count)
+  }
+
+  function animateMatrixName(element, target, delay) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) {
+      element.textContent = target
+      return
+    }
+
+    const glyphs = Array.from('АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ0123456789')
+    const characters = Array.from(target)
+    const frames = 15
+    let frame = 0
+    element.classList.add('is-scrambling')
+
+    const animate = () => {
+      frame += 1
+      const lockedCharacters = Math.floor((frame / frames) * characters.length)
+      element.textContent = characters.map((character, index) => {
+        if (index < lockedCharacters || /[\s’'-]/u.test(character)) return character
+        return glyphs[Math.floor(Math.random() * glyphs.length)]
+      }).join('')
+
+      if (frame >= frames) {
+        element.textContent = target
+        element.classList.remove('is-scrambling')
+        return
+      }
+      window.setTimeout(animate, 34)
+    }
+
+    window.setTimeout(animate, delay)
+  }
+
   function renderCoverageTowns() {
     const list = document.querySelector('.town-list')
     list.replaceChildren()
-    towns.forEach((town, index) => {
+    const settlementNames = [...new Set(SETTLEMENTS_BY_OBLAST.flatMap(({ settlements }) => settlements))]
+    const status = document.createElement('div')
+    status.className = 'town-list__status'
+    status.setAttribute('aria-hidden', 'true')
+    status.innerHTML = '<i></i><span>ОНОВЛЮЄМО СПИСОК МІСТ</span>'
+    list.append(status)
+
+    getRandomItems(settlementNames, 12).forEach((townName, index) => {
       const row = document.createElement('div')
       const pin = document.createElement('span')
       const name = document.createElement('b')
       const number = document.createElement('small')
+      row.className = 'town-list__row'
+      row.style.setProperty('--town-delay', `${index * 65}ms`)
       pin.className = 'town-pin'
-      name.textContent = town.name
+      name.className = 'town-list__name'
+      name.textContent = townName
       number.textContent = String(index + 1).padStart(2, '0')
       row.append(pin, name, number)
       list.append(row)
     })
+
+    const coverageRows = [...list.querySelectorAll('.town-list__row')]
+    window.setInterval(() => {
+      if (document.hidden) return
+      const availableNames = settlementNames.filter((name) =>
+        !coverageRows.some((row) => row.querySelector('b').textContent === name),
+      )
+      const nextNames = getRandomItems(availableNames, coverageRows.length)
+      status.classList.add('is-visible')
+      coverageRows.forEach((row, index) => {
+        const name = row.querySelector('b')
+        animateMatrixName(name, nextNames[index], index * 55)
+      })
+      window.setTimeout(() => status.classList.remove('is-visible'), 1450)
+    }, 4200)
 
     const askButton = document.createElement('button')
     askButton.type = 'button'
