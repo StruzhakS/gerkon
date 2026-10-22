@@ -131,7 +131,7 @@ function renderTariffs() {
       <div class="tariff-group__cards">
         ${group.plans.map((tariff, index) => `
           <article class="tariff-card${tariff.popular ? ' tariff-card--popular' : ''}">
-            ${tariff.popular ? '<span class="popular-tag">НАЙПОПУЛЯРНІШЕ</span>' : ''}
+            ${tariff.popular ? `<span class="popular-tag">${tariff.priceNote ? 'АКЦІЯ' : 'НАЙПОПУЛЯРНІШЕ'}</span>` : ''}
             <div class="tariff-card__top"><span class="tariff-card__index">0${index + 1}</span><span class="tariff-card__description">${tariff.description}</span></div>
             <h3>${tariff.name}</h3>
             <div class="tariff-card__speed"><strong>${tariff.price}</strong>${tariff.priceNote ? '<sup class="tariff-price-note">*</sup>' : ''}<span>${tariff.unit}</span></div>
