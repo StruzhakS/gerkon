@@ -469,7 +469,7 @@ function populateRegionOptions() {
 
 function setFormType(type, tariff = '') {
   const isConsultation = type === 'consultation'
-  dialogTitle.innerHTML = isConsultation ? 'Замовте<br>дзвінок менеджера.' : 'Давайте<br>познайомимось.'
+  dialogTitle.innerHTML = isConsultation ? 'Замовте<br>дзвінок менеджера' : 'Давайте<br>познайомимось'
   dialogKicker.textContent = isConsultation ? 'БЕЗКОШТОВНА КОНСУЛЬТАЦІЯ' : 'ЗАЯВКА НА ПІДКЛЮЧЕННЯ'
   dialogIntro.textContent = isConsultation
     ? 'Залиште номер — ми зателефонуємо та відповімо на запитання.'
