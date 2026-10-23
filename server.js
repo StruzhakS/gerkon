@@ -96,8 +96,7 @@ async function handleLead(request, response) {
   const settlement = clean(payload.settlement, 100)
   const phoneIsValid = /^(\+?380|0)\d{9}$/.test(phone)
   const region = SETTLEMENTS_BY_OBLAST.find((item) => item.name === oblast)
-  const settlementIsValid = region?.settlements.includes(settlement) || settlement === 'Інший населений пункт'
-  const locationIsValid = (!oblast && !settlement) || (region && settlementIsValid) || (!oblast && settlement === 'Інший населений пункт')
+  const locationIsValid = !oblast || Boolean(region && region.settlements.includes(settlement))
   if (!name || !locationIsValid || !phoneIsValid) return sendJson(response, 400, { error: 'Перевірте ім’я, український номер телефону та населений пункт.' })
 
   const requestType = clean(payload.requestType, 50) === 'consultation' ? 'Консультація' : 'Підключення'

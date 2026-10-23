@@ -445,51 +445,20 @@ function renderMapPoints() {
   }
 
 function populateRegionOptions() {
-  const regions = SETTLEMENTS_BY_OBLAST
-
   document.querySelectorAll('form[data-lead-form]').forEach((form) => {
-    const regionSelect = form.elements.oblast
-    const settlementSelect = form.elements.settlement
-    if (!settlementSelect) return
+    const settlementInput = form.elements.settlement
+    if (!settlementInput || settlementInput.tagName !== 'INPUT') return
 
-    if (regionSelect?.tagName === 'SELECT') {
-      regions.forEach((region) => {
-        const option = document.createElement('option')
-        option.value = region.name
-        option.textContent = region.name
-        regionSelect.append(option)
-      })
-      updateSettlements(form, regions)
-      return
-    }
+    const suggestions = document.querySelector('#settlement-suggestions')
+    if (!suggestions || suggestions.options.length > 0) return
+    const settlements = [...new Set(SETTLEMENTS_BY_OBLAST.flatMap(({ settlements: towns }) => towns))]
+      .sort((first, second) => first.localeCompare(second, 'uk'))
 
-    regions.forEach((region) => {
-      const group = document.createElement('optgroup')
-      group.label = region.name
-      region.settlements.forEach((town) => {
-        const option = document.createElement('option')
-        option.value = town
-        option.textContent = town
-        option.dataset.oblast = region.name
-        group.append(option)
-      })
-      settlementSelect.append(group)
-    })
-    const other = document.createElement('option')
-    other.value = 'Інший населений пункт'
-    other.textContent = 'Інший населений пункт'
-    settlementSelect.append(other)
-  })
-
-  document.addEventListener('change', (event) => {
-    if (event.target.matches('select[name="oblast"]')) {
-      updateSettlements(event.target.form, regions)
-    } else if (event.target.matches('select[name="settlement"]')) {
-      const regionInput = event.target.form.elements.oblast
-      if (regionInput && regionInput.type === 'hidden') {
-        regionInput.value = event.target.selectedOptions[0]?.dataset.oblast || ''
-      }
-    }
+    suggestions.replaceChildren(...settlements.map((settlement) => {
+      const option = document.createElement('option')
+      option.value = settlement
+      return option
+    }))
   })
 
   document.addEventListener('reset', (event) => {
@@ -497,31 +466,6 @@ function populateRegionOptions() {
     if (regionInput && regionInput.type === 'hidden') regionInput.value = ''
   })
 }
-
-function updateSettlements(form, regions) {
-  const regionSelect = form.elements.oblast
-  const settlementSelect = form.elements.settlement
-  const region = regions.find((item) => item.name === regionSelect.value)
-  const placeholder = document.createElement('option')
-  placeholder.value = ''
-  placeholder.disabled = true
-  placeholder.selected = true
-  placeholder.textContent = region ? 'Оберіть населений пункт' : 'Спершу оберіть область'
-  settlementSelect.replaceChildren(placeholder)
-  settlementSelect.disabled = !region
-
-  if (!region) return
-  region.settlements.forEach((town) => {
-    const option = document.createElement('option')
-    option.value = town
-    option.textContent = town
-    settlementSelect.append(option)
-  })
-  const other = document.createElement('option')
-  other.value = 'Інший населений пункт'
-  other.textContent = 'Інший населений пункт'
-  settlementSelect.append(other)
-  }
 
 function setFormType(type, tariff = '') {
   const isConsultation = type === 'consultation'

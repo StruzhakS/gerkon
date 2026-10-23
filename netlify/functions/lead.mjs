@@ -37,8 +37,7 @@ export default async (request) => {
   const oblast = clean(payload.oblast, 100)
   const settlement = clean(payload.settlement, 100)
   const region = SETTLEMENTS_BY_OBLAST.find((item) => item.name === oblast)
-  const settlementIsValid = region?.settlements.includes(settlement) || settlement === 'Інший населений пункт'
-  const locationIsValid = (!oblast && !settlement) || (region && settlementIsValid) || (!oblast && settlement === 'Інший населений пункт')
+  const locationIsValid = !oblast || Boolean(region && region.settlements.includes(settlement))
   if (!name || !locationIsValid || !/^(\+?380|0)\d{9}$/.test(phone)) {
     return json(400, { error: 'Перевірте ім’я, український номер телефону та населений пункт.' })
   }
