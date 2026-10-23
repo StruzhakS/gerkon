@@ -560,6 +560,8 @@ dialog.addEventListener('click', (event) => {
 dialog.addEventListener('close', () => {
   document.documentElement.classList.remove('dialog-open')
   document.body.classList.remove('dialog-open')
+  dialog.classList.remove('is-success')
+  dialog.removeAttribute('aria-label')
   if (!dialogForm.querySelector('.form-message')) dialogForm.innerHTML = dialogFormTemplate
   dialogForm.reset()
   const message = dialogForm.querySelector('.form-message')
@@ -619,7 +621,7 @@ async function submitLead(form) {
   data.requestType ||= form.dataset.formType || 'connection'
   const phone = normalizePhone(String(data.phone || ''))
   if (!phone) {
-    showMessage(form, 'Вкажіть український номер: +380XXXXXXXXX або 0XXXXXXXXX.', 'error')
+    showMessage(form, 'Вкажіть український номер у форматі +380 XX XXX XX XX або 0XX XXX XX XX.', 'error')
     form.elements.phone.focus()
     return
   }
@@ -639,6 +641,8 @@ async function submitLead(form) {
     const result = await response.json().catch(() => ({}))
     if (!response.ok) throw new Error(result.error || 'Не вдалося надіслати заявку. Спробуйте ще раз.')
     if (form.closest('dialog')) {
+      dialog.classList.add('is-success')
+      dialog.setAttribute('aria-label', 'Заявку успішно надіслано')
       form.innerHTML = '<div class="success-state"><span class="success-check">✓</span><span class="section-kicker">ЗАЯВКУ ОТРИМАНО</span><h3>Дякуємо!</h3><p>Наш менеджер зв’яжеться з вами найближчим часом.</p><button class="button button--dark" type="button" data-success-close>Гаразд</button></div>'
       form.querySelector('[data-success-close]').addEventListener('click', () => dialog.close())
     } else {

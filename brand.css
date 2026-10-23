@@ -399,6 +399,36 @@
   background: linear-gradient(180deg, #9db4ff, #a184f2);
 }
 
+.lead-dialog.is-success {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  min-height: 300px;
+}
+
+.lead-dialog.is-success .dialog__top .section-kicker,
+.lead-dialog.is-success #dialog-title,
+.lead-dialog.is-success .dialog__intro {
+  display: none;
+}
+
+.lead-dialog.is-success .dialog__top {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.lead-dialog.is-success .lead-form {
+  width: 100%;
+  align-content: center;
+}
+
+.lead-dialog.is-success .success-state {
+  width: 100%;
+  justify-items: center;
+  text-align: center;
+}
+
 .lead-form .consent-check {
   display: grid;
   grid-template-columns: 15px minmax(0, 1fr);
