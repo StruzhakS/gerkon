@@ -133,23 +133,26 @@ consentCopy.id = 'personal-data-consent-copy'
 consentCopy.textContent = 'Відправляючи заявку на цьому сайті, Ви даєте згоду на обробку вказаних Вами персональних даних відповідно до умов Закону України «Про захист персональних даних» виключно з метою отримання пропозиції щодо надання послуг АТ «Укртелеком» та підтверджуєте, що не є громадянином (або резидентом) Євросоюзу або Швейцарії.'
 consentLabel.append(consentInput, consentCopy)
 dialogForm.querySelector('.button--submit').before(consentLabel)
-const representativeNote = document.createElement('div')
-representativeNote.className = 'dialog-representative'
-representativeNote.innerHTML = '<span>©2026, Офіційний представник</span><strong>ПАТ «Укртелеком»</strong>'
-dialogForm.append(representativeNote)
 const dialogFormTemplate = dialogForm.innerHTML
 const menuToggle = document.querySelector('.menu-toggle')
 const navigation = document.querySelector('.nav')
 const mapPoints = document.querySelector('.geo-map__points')
+let leadToastTimer
 
 function renderTariffs() {
-  tariffGrid.innerHTML = tariffGroups.map((group) => `
-    <div class="tariff-group">
+  const displayedGroups = [tariffGroups[0], tariffGroups[2], tariffGroups[1]]
+  const tabs = displayedGroups.map((group, index) => `
+    <button class="tariff-tab${index === 0 ? ' is-active' : ''}" id="tariff-tab-${index}" type="button" role="tab" aria-selected="${index === 0}" aria-controls="tariff-panel-${index}" tabindex="${index === 0 ? '0' : '-1'}">
+      ${group.title === 'Укртелеком Інтернет' ? 'Інтернет' : group.title === 'Інтернет + Телебачення' ? 'Інтернет + ТБ' : 'Телебачення'}
+    </button>
+  `).join('')
+  const panels = displayedGroups.map((group, groupIndex) => `
+    <section class="tariff-group" id="tariff-panel-${groupIndex}" role="tabpanel" aria-labelledby="tariff-tab-${groupIndex}"${groupIndex === 0 ? '' : ' hidden'}>
       <div class="tariff-group__header">
         <span class="section-kicker">${group.title}</span>
         <p>${group.subtitle}</p>
       </div>
-      <div class="tariff-group__cards">
+      <div class="tariff-group__cards${group.plans.length === 2 ? ' tariff-group__cards--pair' : ''}">
         ${group.plans.map((tariff, index) => `
           <article class="tariff-card${tariff.popular ? ' tariff-card--popular' : ''}">
             ${tariff.popular ? `<span class="popular-tag">${tariff.priceNote ? 'АКЦІЯ' : 'НАЙПОПУЛЯРНІШЕ'}</span>` : ''}
@@ -164,8 +167,39 @@ function renderTariffs() {
             <button class="button ${tariff.popular ? 'button--dark' : 'button--outline'}" type="button" data-open-form data-form-type="connection" data-tariff="${group.title} — ${tariff.name}">Обрати тариф <span aria-hidden="true">→</span></button>
           </article>`).join('')}
       </div>
-    </div>
+    </section>
   `).join('')
+  tariffGrid.innerHTML = `
+    <div class="tariff-tabs" role="tablist" aria-label="Категорії тарифів">${tabs}</div>
+    <div class="tariff-panels">${panels}</div>
+  `
+  const tariffTabs = [...tariffGrid.querySelectorAll('[role="tab"]')]
+  const selectTariffTab = (selectedIndex, focus = false) => {
+    tariffTabs.forEach((tab, index) => {
+      const selected = index === selectedIndex
+      tab.classList.toggle('is-active', selected)
+      tab.setAttribute('aria-selected', String(selected))
+      tab.tabIndex = selected ? 0 : -1
+      tariffGrid.querySelector(`#tariff-panel-${index}`).hidden = !selected
+    })
+    if (focus) tariffTabs[selectedIndex].focus()
+  }
+  tariffGrid.querySelector('.tariff-tabs').addEventListener('click', (event) => {
+    const tab = event.target.closest('[role="tab"]')
+    if (tab) selectTariffTab(tariffTabs.indexOf(tab))
+  })
+  tariffGrid.querySelector('.tariff-tabs').addEventListener('keydown', (event) => {
+    const currentIndex = tariffTabs.indexOf(event.target.closest('[role="tab"]'))
+    if (currentIndex < 0) return
+    let nextIndex
+    if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tariffTabs.length
+    else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tariffTabs.length) % tariffTabs.length
+    else if (event.key === 'Home') nextIndex = 0
+    else if (event.key === 'End') nextIndex = tariffTabs.length - 1
+    else return
+    event.preventDefault()
+    selectTariffTab(nextIndex, true)
+  })
   const offerNote = document.createElement('p')
   offerNote.className = 'fine-print fine-print--offer'
   offerNote.textContent = '* Акційна ціна 99 грн/міс діє для нових абонентів у певних населених пунктах. Уточніть доступність для вашої адреси.'
@@ -227,6 +261,7 @@ function layoutMapLabels() {
 }
 
 function renderMapPoints() {
+  if (!mapPoints || !mapPoints.offsetParent) return
   const bounds = { minLat: 44.399644, maxLat: 52.335075, minLon: 22.085608, maxLon: 40.080789 }
   const mapSvg = document.querySelector('.geo-map__art')
   const mapOutline = mapSvg.querySelector('.map-land')
@@ -414,23 +449,52 @@ function populateRegionOptions() {
 
   document.querySelectorAll('form[data-lead-form]').forEach((form) => {
     const regionSelect = form.elements.oblast
+    const settlementSelect = form.elements.settlement
+    if (!settlementSelect) return
+
+    if (regionSelect?.tagName === 'SELECT') {
+      regions.forEach((region) => {
+        const option = document.createElement('option')
+        option.value = region.name
+        option.textContent = region.name
+        regionSelect.append(option)
+      })
+      updateSettlements(form, regions)
+      return
+    }
+
     regions.forEach((region) => {
-      const option = document.createElement('option')
-      option.value = region.name
-      option.textContent = region.name
-      regionSelect.append(option)
+      const group = document.createElement('optgroup')
+      group.label = region.name
+      region.settlements.forEach((town) => {
+        const option = document.createElement('option')
+        option.value = town
+        option.textContent = town
+        option.dataset.oblast = region.name
+        group.append(option)
+      })
+      settlementSelect.append(group)
     })
-    updateSettlements(form, regions)
+    const other = document.createElement('option')
+    other.value = 'Інший населений пункт'
+    other.textContent = 'Інший населений пункт'
+    settlementSelect.append(other)
   })
 
   document.addEventListener('change', (event) => {
     if (event.target.matches('select[name="oblast"]')) {
       updateSettlements(event.target.form, regions)
+    } else if (event.target.matches('select[name="settlement"]')) {
+      const regionInput = event.target.form.elements.oblast
+      if (regionInput && regionInput.type === 'hidden') {
+        regionInput.value = event.target.selectedOptions[0]?.dataset.oblast || ''
+      }
     }
   })
 
   document.addEventListener('reset', (event) => {
-    setTimeout(() => updateSettlements(event.target, regions), 0)
+    const regionInput = event.target.elements.oblast
+    if (regionInput && regionInput.type === 'hidden') regionInput.value = ''
   })
 }
 
@@ -478,15 +542,6 @@ function openLeadDialog(type, tariff = '', focusTarget = 'name') {
   const focusElement = dialogForm.elements[focusTarget]
   if (focusTarget === 'personalDataConsent') focusElement.focus()
   else focusElement.focus({ preventScroll: true })
-}
-
-function continueQuickCheck(form) {
-  dialogForm.elements.name.value = form.elements.name.value
-  dialogForm.elements.phone.value = form.elements.phone.value
-  dialogForm.elements.oblast.value = form.elements.oblast.value
-  updateSettlements(dialogForm, SETTLEMENTS_BY_OBLAST)
-  dialogForm.elements.settlement.value = form.elements.settlement.value
-  openLeadDialog('connection', '', 'personalDataConsent')
 }
 
 document.addEventListener('click', (event) => {
@@ -541,6 +596,24 @@ function showMessage(form, message, state) {
   output.classList.toggle('is-success', state === 'success')
 }
 
+function showLeadToast(message) {
+  let toast = document.querySelector('.lead-toast')
+  if (!toast) {
+    toast = document.createElement('div')
+    toast.className = 'lead-toast'
+    toast.setAttribute('role', 'status')
+    toast.setAttribute('aria-live', 'polite')
+    document.body.append(toast)
+  }
+
+  window.clearTimeout(leadToastTimer)
+  toast.textContent = message
+  toast.classList.add('is-visible')
+  leadToastTimer = window.setTimeout(() => {
+    toast.classList.remove('is-visible')
+  }, 5000)
+}
+
 async function submitLead(form) {
   const data = Object.fromEntries(new FormData(form).entries())
   data.requestType ||= form.dataset.formType || 'connection'
@@ -570,7 +643,7 @@ async function submitLead(form) {
       form.querySelector('[data-success-close]').addEventListener('click', () => dialog.close())
     } else {
       form.reset()
-      showMessage(form, 'Дякуємо! Наш менеджер скоро зателефонує вам.', 'success')
+      showLeadToast('Заявку успішно надіслано! Ми скоро зателефонуємо.')
       button.innerHTML = originalContent
       button.disabled = false
     }
@@ -584,10 +657,6 @@ async function submitLead(form) {
 document.querySelectorAll('[data-lead-form]').forEach((form) => {
   form.addEventListener('submit', (event) => {
     event.preventDefault()
-    if (form.classList.contains('quick-form')) {
-      continueQuickCheck(form)
-      return
-    }
     submitLead(form)
   })
 })

@@ -97,7 +97,8 @@ async function handleLead(request, response) {
   const phoneIsValid = /^(\+?380|0)\d{9}$/.test(phone)
   const region = SETTLEMENTS_BY_OBLAST.find((item) => item.name === oblast)
   const settlementIsValid = region?.settlements.includes(settlement) || settlement === 'Інший населений пункт'
-  if (!name || !region || !settlementIsValid || !phoneIsValid) return sendJson(response, 400, { error: 'Перевірте ім’я, український номер телефону, область і населений пункт.' })
+  const locationIsValid = (!oblast && !settlement) || (region && settlementIsValid) || (!oblast && settlement === 'Інший населений пункт')
+  if (!name || !locationIsValid || !phoneIsValid) return sendJson(response, 400, { error: 'Перевірте ім’я, український номер телефону та населений пункт.' })
 
   const requestType = clean(payload.requestType, 50) === 'consultation' ? 'Консультація' : 'Підключення'
   const fields = [
@@ -105,8 +106,8 @@ async function handleLead(request, response) {
     `<b>Тип:</b> ${escapeHtml(requestType)}`,
     `<b>Ім’я:</b> ${escapeHtml(name)}`,
     `<b>Телефон:</b> <a href="tel:${escapeHtml(phone)}">${escapeHtml(phone)}</a>`,
-    `<b>Область:</b> ${escapeHtml(oblast)}`,
-    `<b>Населений пункт:</b> ${escapeHtml(settlement)}`,
+    `<b>Область:</b> ${escapeHtml(oblast || '—')}`,
+    `<b>Населений пункт:</b> ${escapeHtml(settlement || '—')}`,
     `<b>Вулиця:</b> ${escapeHtml(clean(payload.street, 120) || '—')}`,
     `<b>Будинок:</b> ${escapeHtml(clean(payload.building, 30) || '—')}`,
     `<b>Тариф:</b> ${escapeHtml(clean(payload.tariff, 100) || '—')}`,
