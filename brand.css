@@ -160,7 +160,18 @@
   border-color: var(--citrus);
   box-shadow: 0 0 0 2px rgba(143, 231, 255, 0.12);
 }
-.hero-lead-form .button { width: 100%; min-height: 52px; }
+.hero-lead-form .button {
+  width: 100%;
+  min-height: 52px;
+  background-position: 1px center;
+  background-size: calc(100% + 1px) 100%;
+  background-repeat: no-repeat;
+}
+.hero-lead-form .button:hover:not(:disabled) {
+  background-position: 1px center;
+  background-size: calc(100% + 1px) 100%;
+  background-repeat: no-repeat;
+}
 .hero-lead-form .form-message { margin: 0; color: #ffb3ad; font-size: 12px; }
 .lead-toast {
   position: fixed;
