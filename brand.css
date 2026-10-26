@@ -71,7 +71,9 @@
 }
 
 .hero__facts > i { background: rgba(255, 183, 107, 0.56); }
-
+.hero__facts {
+    justify-content: center
+}
 .hero__claim {
   margin: -4px 0 14px;
   color: var(--citrus);
