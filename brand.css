@@ -74,6 +74,26 @@
 .hero__facts {
     justify-content: center
 }
+@media (min-width: 768px) {
+  .hero__facts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    align-items: center;
+    width: min(calc(88% - 50px), 470px);
+    column-gap: 14px;
+  }
+
+  .hero__facts > span {
+    min-width: 0;
+    text-align: center;
+  }
+
+  .hero__facts > i {
+    width: 1px;
+    height: 28px;
+    justify-self: center;
+  }
+}
 .hero__claim {
   margin: -4px 0 14px;
   color: var(--citrus);
