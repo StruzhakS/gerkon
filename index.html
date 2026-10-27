@@ -39,10 +39,55 @@
       "@type": "Service",
       "name": "Оптоволоконний інтернет GPON",
       "serviceType": "Доступ до інтернету через GPON",
-      "provider": { "@type": "Organization", "name": "Укртелеком" },
+      "provider": {
+        "@type": "Organization",
+        "name": "Укртелеком",
+        "telephone": "+380997460043",
+        "areaServed": { "@type": "Country", "name": "Україна" }
+      },
       "areaServed": { "@type": "Country", "name": "Україна" },
       "description": "Послуга для дому та бізнесу. Технічна можливість підключення залежить від адреси."
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Чи працює GPON без електрики?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Оптична лінія пасивна, але вдома потрібно заживити GPON-термінал і Wi-Fi роутер від резервного джерела живлення."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Як перевірити покриття за моєю адресою?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Залиште номер телефону й населений пункт у формі. Менеджер уточнить адресу та перевірить технічну можливість."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Чи підключаєте приватні будинки?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Так, можливість залежить від розташування мережі поблизу. Надішліть заявку — перевіримо вашу адресу."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Яке обладнання потрібне?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Для оптоволоконного підключення потрібен GPON-термінал і Wi-Fi роутер. Менеджер підкаже сумісне обладнання для вашого тарифу."
+        }
+      }
+    ]
   }
   </script>
   <script type="module" src="/app.js"></script>
