@@ -11,7 +11,7 @@ const tariffGroups = [
         unit: 'грн/міс',
         description: ' ',
         features: ['Швидкість до 1 Гбіт/с', 'Легке підключення від 1 грн', 'Працює без світла', 'Технологія GPON', 'Ціна може відрізнятися для різних адрес'],
-        priceNote: true,
+        priceNote: 1,
         popular: true,
       },
       {
@@ -20,6 +20,7 @@ const tariffGroups = [
         unit: 'грн/міс',
         description: ' ',
         features: ['Швидкість до 1 Гбіт/с', 'Працює без світла', 'Технологія GPON', 'Тариф залежить від населеного пункту'],
+        priceNote: 2,
       },
     ],
   },
@@ -37,7 +38,7 @@ const tariffGroups = [
       },
       {
         name: 'Максимальний Дует',
-        price: '550',
+        price: '600',
         unit: 'грн/міс',
         description: 'Інтернет до 1 Гбіт/с + понад 480 каналів',
         features: ['Інтернет до 1 Гбіт/с', 'Телебачення: понад 480 каналів', 'Понад 16 000 фільмів', 'Спортивні та преміальні канали', 'Топові спортивні трансляції'],
@@ -47,28 +48,115 @@ const tariffGroups = [
   {
     title: 'Тарифи Телебачення',
     subtitle: 'Вибір для фільмів, спорту та живих трансляцій',
-    plans: [
+    sections: [
       {
-        name: 'Легкий',
-        price: '129',
-        unit: 'грн/міс',
-        description: 'Понад 370 каналів',
-        features: ['Понад 370 каналів', 'Понад 12 500 фільмів', 'Спортивні канали'],
+        title: 'Основні передплати',
+        plans: [
+          {
+            name: 'MEGAPACK',
+            price: '499',
+            unit: 'грн/міс',
+            description: 'Максимальний',
+            features: ['Понад 480 каналів', 'Понад 16 000 фільмів', 'Спортивні та преміальні канали', 'Топові спортивні трансляції'],
+          },
+          {
+            name: 'Спорт',
+            price: '399',
+            unit: 'грн/міс',
+            description: 'Спортивна передплата',
+            features: [
+              'Ексклюзивні футбольні трансляції: Ліга чемпіонів, Ла Ліга, Серія А, УПЛ',
+              'Понад 40 спортивних каналів: MEGOGO Футбол, Setanta Sports, Eurosport',
+              'Понад 11 500 фільмів, серіалів та мультфільмів у подарунок',
+              'Трансляції боксу, Формули-1, НБА та НХЛ',
+              'Великий архів записів матчів та оглядів',
+              'Перегляд на 2 пристроях одночасно',
+            ],
+          },
+          {
+            name: 'ТБ+Кіно Промо',
+            price: 'від 1 до 49',
+            unit: 'грн за промо-період',
+            description: 'Промокод / спецпропозиція',
+            priceRange: true,
+            features: [
+              'Максимальний тест-драйв тарифу за символічну ціну',
+              'Активація через спеціальний промокод або партнерську пропозицію',
+              'Повний доступ до 440+ каналів та кінобази на час промо-періоду',
+              'Далі — 249 грн/міс',
+            ],
+          },
+        ],
       },
       {
-        name: 'Оптимальний',
-        price: '249',
-        unit: 'грн/міс',
-        description: 'Понад 440 каналів',
-        features: ['Понад 440 каналів', 'Понад 14 500 фільмів', 'Спортивні та преміальні канали'],
-        popular: true,
-      },
-      {
-        name: 'Максимальний',
-        price: '449',
-        unit: 'грн/міс',
-        description: 'Понад 480 каналів',
-        features: ['Понад 480 каналів', 'Понад 16 000 фільмів', 'Спортивні та преміальні канали', 'Топові спортивні трансляції'],
+        title: 'Акційні пропозиції',
+        promotion: true,
+        plans: [
+          {
+            name: 'Національне ТБ',
+            price: '1',
+            unit: 'грн/міс',
+            description: 'Перші 91 день · далі 99 грн/міс',
+            promotion: true,
+            badge: 'АКЦІЯ',
+            features: [
+              'Понад 290 українських телеканалів у високій якості',
+              'Доступ до всіх матчів українського чемпіонату на УПЛ ТБ',
+              'Інтерактивний архів ефіру до 14 днів',
+              'Від 49 грн/міс за річну передплату',
+              'Пауза, перемотування та перегляд спочатку',
+              'До 5 пристроїв на один акаунт',
+            ],
+          },
+          {
+            name: 'ТБ+',
+            price: '50',
+            unit: 'грн/міс',
+            description: 'Перші 91 день · далі 149 грн/міс',
+            promotion: true,
+            badge: 'АКЦІЯ',
+            features: [
+              'Понад 420 телеканалів та 11 500+ фільмів і серіалів',
+              'Суперціна: 50 грн/міс на перші 91 день',
+              'Автоматичне продовження за ціною 149 грн/міс',
+              'Повний доступ до матчів українського футболу на УПЛ ТБ',
+              'Архів записів програм до 14 днів',
+              'До 5 пристроїв для всієї родини',
+            ],
+          },
+          {
+            name: 'ТБ+Кіно',
+            price: '99',
+            unit: 'грн/міс',
+            description: 'Перші 91 день · далі 249 грн/міс',
+            promotion: true,
+            badge: 'АКЦІЯ',
+            features: [
+              'Понад 440 телеканалів та понад 12 500 фільмів у високій якості',
+              'Акційна ціна: 99 грн/міс на перші 91 день',
+              'Автоматичне продовження за ціною 249 грн/міс',
+              'Доступ до матчів українського футболу на каналі УПЛ ТБ',
+              'Керування прямим ефіром та інтерактивний архів телепередач',
+              'Кіно без реклами на 5 пристроях одночасно',
+            ],
+          },
+          {
+            name: 'Легкий',
+            price: '50',
+            unit: 'грн/міс',
+            description: 'Перші 91 день · далі 129 грн/міс',
+            promotion: true,
+            badge: 'АКЦІЯ',
+            features: [
+              'Понад 390 телеканалів та понад 10 500 фільмів і серіалів',
+              'Старт без переплат: 50 грн/міс на перші 91 день',
+              'Автоматичне продовження за ціною 129 грн/міс',
+              'Прямі трансляції матчів українського футболу на УПЛ ТБ',
+              'Пауза, перемотування та інтерактивний архів ефіру',
+              'Перегляд на 5 пристроях одночасно',
+            ],
+          },
+        ],
       },
     ],
   },
@@ -152,13 +240,17 @@ function renderTariffs() {
         <span class="section-kicker">${group.title}</span>
         <p>${group.subtitle}</p>
       </div>
-      <div class="tariff-group__cards${group.plans.length === 2 ? ' tariff-group__cards--pair' : ''}">
-        ${group.plans.map((tariff, index) => `
-          <article class="tariff-card${tariff.popular ? ' tariff-card--popular' : ''}">
-            ${tariff.popular ? `<span class="popular-tag">${tariff.priceNote ? 'АКЦІЯ' : 'НАЙПОПУЛЯРНІШЕ'}</span>` : ''}
+      <div class="tariff-group__sections">
+        ${(group.sections || [{ title: '', plans: group.plans }]).map((section) => `
+          <div class="tariff-subsection${section.promotion ? ' tariff-subsection--promos' : ''}">
+            ${section.title ? `<h3 class="tariff-subsection__title">${section.title}</h3>` : ''}
+            <div class="tariff-group__cards${section.plans.length === 2 ? ' tariff-group__cards--pair' : ''}">
+              ${section.plans.map((tariff, index) => `
+          <article class="tariff-card${tariff.popular ? ' tariff-card--popular' : ''}${tariff.promotion ? ' tariff-card--promotion' : ''}${tariff.priceRange ? ' tariff-card--price-range' : ''}">
+            ${tariff.badge || tariff.popular ? `<span class="popular-tag">${tariff.badge || (tariff.priceNote ? 'АКЦІЯ' : 'НАЙПОПУЛЯРНІШЕ')}</span>` : ''}
             <div class="tariff-card__top"><span class="tariff-card__index">0${index + 1}</span><span class="tariff-card__description">${tariff.description}</span></div>
             <h3>${tariff.name}</h3>
-            <div class="tariff-card__speed"><strong>${tariff.price}</strong>${tariff.priceNote ? '<sup class="tariff-price-note">*</sup>' : ''}<span>${tariff.unit}</span></div>
+            <div class="tariff-card__speed"><strong>${tariff.price}</strong>${tariff.priceNote ? `<sup class="tariff-price-note">${'*'.repeat(tariff.priceNote)}</sup>` : ''}<span>${tariff.unit}</span></div>
             <div class="speed-line"><i style="--speed:${(index + 1) * 28}%"></i></div>
             <ul>${tariff.features.map((feature) => {
               const isFootnote = feature.includes('певних акційних населених пунктах')
@@ -166,6 +258,9 @@ function renderTariffs() {
             }).join('')}</ul>
             <button class="button ${tariff.popular ? 'button--dark' : 'button--outline'}" type="button" data-open-form data-form-type="connection" data-tariff="${group.title} — ${tariff.name}">Обрати тариф <span aria-hidden="true">→</span></button>
           </article>`).join('')}
+            </div>
+          </div>
+        `).join('')}
       </div>
     </section>
   `).join('')
@@ -200,10 +295,13 @@ function renderTariffs() {
     event.preventDefault()
     selectTariffTab(nextIndex, true)
   })
-  const offerNote = document.createElement('p')
-  offerNote.className = 'fine-print fine-print--offer'
-  offerNote.textContent = '* Акційна ціна 99 грн/міс діє для нових абонентів у певних населених пунктах. Уточніть доступність для вашої адреси.'
-  tariffGrid.after(offerNote)
+  const offerNotes = document.createElement('div')
+  offerNotes.className = 'tariff-offer-notes'
+  offerNotes.innerHTML = `
+    <p class="fine-print fine-print--offer">* Акційна ціна 99 грн/міс діє для нових абонентів у певних населених пунктах. Уточніть доступність для вашої адреси.</p>
+    <p class="fine-print fine-print--offer">** Вартість регулярного тарифу залежить від населеного пункту.</p>
+  `
+  tariffGrid.after(offerNotes)
 }
 
 function layoutMapLabels() {

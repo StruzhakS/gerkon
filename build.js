@@ -12,6 +12,8 @@ const publicFiles = [
   'map-labels.css',
   'favicon.svg',
   'ukrtelecom-logo.png',
+  'images/mercusys-mr30g.jpg',
+  'images/tp-link-tl-wr850n.jpg',
   'settlements-data.js',
   'settlements-data.js',
   'robots.txt',
@@ -19,6 +21,7 @@ const publicFiles = [
 
 await rm(output, { recursive: true, force: true })
 await mkdir(output, { recursive: true })
+await mkdir(new URL('./dist/images/', import.meta.url), { recursive: true })
 for (const file of publicFiles) {
   await cp(new URL(`./${file}`, import.meta.url), new URL(`./dist/${file}`, import.meta.url))
 }
